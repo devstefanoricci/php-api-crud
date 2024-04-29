@@ -39,10 +39,8 @@ class Employee
         $this->email = htmlspecialchars(strip_tags($this->email));
         $this->area = htmlspecialchars(strip_tags($this->area));
         $this->created_at = htmlspecialchars(strip_tags($this->created_at));
-        $sqlQuery = "INSERT INTO
-" . $this->db_table . " SET name = '" . $this->name . "',
-email = '" . $this->email . "',
-area = '" . $this->area . "',created_at = '" . $this->created_at . "'";
+        $sqlQuery = "INSERT INTO " . $this->db_table . " SET name = '" . $this->name . "', email = '" . $this->email . "',
+            area = '" . $this->area . "',created_at = '" . $this->created_at . "'";
         $this->db->query($sqlQuery);
         if ($this->db->affected_rows > 0) {
             return true;
