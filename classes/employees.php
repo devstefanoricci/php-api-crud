@@ -21,7 +21,7 @@ class Employee
     }
 
     // GET ALL
-    public function getEmployees()
+    public function getEmployees(): object
     {
         $sqlQuery = "SELECT id, name, email, area, created_at FROM " . $this->db_table . "";
         $this->result = $this->db->query($sqlQuery);
