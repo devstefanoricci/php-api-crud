@@ -4,7 +4,7 @@ class Employee
     // dbection
     private $db;
     // Table
-    private $db_table = "employees";
+    private string $db_table = "employees";
     // Columns
     public int $id;
     public string $name;
@@ -25,6 +25,9 @@ class Employee
     {
         $sqlQuery = "SELECT id, name, email, area, created_at FROM " . $this->db_table . "";
         $this->result = $this->db->query($sqlQuery);
+        // DEBUG
+        /* var_dump($this->result);
+        die(); */
         return $this->result;
     }
 
