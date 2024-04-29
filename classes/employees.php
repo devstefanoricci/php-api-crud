@@ -7,15 +7,15 @@ class Employee
     private string $db_table = "employees";
     // Columns
     public int $id;
-    public string $name;
-    public string $email;
-    public string $area;
-    public string $created_at;
+    public string $name = '';
+    public string $email = '';
+    public string $area = '';
+    public string $created_at = '';
     public object $result;
 
 
     // Db dbection
-    public function __construct($db)
+    public function __construct($db, $name = null, $email = null, $area = null, $created_at = null)
     {
         $this->db = $db;
     }
@@ -32,7 +32,7 @@ class Employee
     }
 
     // CREATE
-    public function createEmployee()
+    public function createEmployee(): bool
     {
         // sanitize
         $this->name = htmlspecialchars(strip_tags($this->name));
@@ -53,14 +53,15 @@ area = '" . $this->area . "',created_at = '" . $this->created_at . "'";
     // UPDATE
     public function getSingleEmployee()
     {
-        $sqlQuery = "SELECT id, name, email, area, created_at FROM
-" . $this->db_table . " WHERE id = " . $this->id;
-        $record = $this->db->query($sqlQuery);
-        $dataRow = $record->fetch_assoc();
-        $this->name = $dataRow['name'];
-        $this->email = $dataRow['email'];
-        $this->area = $dataRow['area'];
-        $this->created_at = $dataRow['created_at'];
+        $sqlQuery = "SELECT id, name, email, area, created_at FROM " . $this->db_table . " WHERE id = " . $this->id;
+        $single_result = $this->db->query($sqlQuery);
+        if ($single_result->num_rows > 0) {
+            $dataRow = $single_result->fetch_assoc();
+            $this->name = $dataRow['name'];
+            $this->email = $dataRow['email'];
+            $this->area = $dataRow['area'];
+            $this->created_at = $dataRow['created_at'];
+        }
     }
 
     // UPDATE
@@ -85,7 +86,7 @@ WHERE id = " . $this->id;
     }
 
     // DELETE
-    function deleteEmployee()
+    function deleteEmployee(): bool
     {
         $sqlQuery = "DELETE FROM " . $this->db_table . " WHERE id = " . $this->id;
         $this->db->query($sqlQuery);
