@@ -7,18 +7,22 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 include_once '../config/database.php';
 include_once '../classes/employees.php';
+
 $database = new Database();
 $db = $database->getConnection();
 $item = new Employee($db);
 
-
 $item->name = $_GET['name'];
 $item->email = $_GET['email'];
-$item->designation = $_GET['designation'];
-$item->created = date('Y-m-d H:i:s');
-if($item->createEmployee()){
-echo 'Employee created successfully.';
-} else{
-echo 'Employee could not be created.';
+$item->area = $_GET['area'];
+$item->created_at = date('Y-m-d H:i:s');
+
+if ($item->createEmployee()) {
+    http_response_code(201);
+    $msg = ["message" => "Employee created successfully."];
+    echo json_encode($msg);
+} else {
+    http_response_code(200);
+    $msg = ["message" => "Employee could not be created."];
+    echo json_encode($msg);
 }
-?>
