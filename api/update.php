@@ -12,14 +12,13 @@ $database = new Database();
 $db = $database->getConnection();
 $item = new Employee($db);
 
-$item->id = isset($_GET['id']) ? $_GET['id'] : die();
-$item->name = $_GET['name'];
-/* $item->email = $_GET['email'];
-$item->area = $_GET['area']; */
+$item->id = isset($_POST['id']) ? $_POST['id'] : die();
+$item->name = $_POST['name'];
+$item->email = $_POST['email'];
+$item->area = $_POST['area']; */
 $item->created_at = date('Y-m-d H:i:s');
-if($item->updateEmployee()){
-echo json_encode("Employee data updated.");
-} else{
-echo json_encode("Data could not be updated");
+if ($item->updateEmployee()) {
+    echo json_encode("Employee data updated.");
+} else {
+    echo json_encode("Data could not be updated");
 }
-?>
