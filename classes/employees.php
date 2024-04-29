@@ -63,7 +63,7 @@ class Employee
     }
 
     // UPDATE
-    public function updateEmployee()
+    public function updateEmployee(): bool
     {
         $this->name = htmlspecialchars(strip_tags($this->name));
         $this->email = htmlspecialchars(strip_tags($this->email));
@@ -71,10 +71,12 @@ class Employee
         $this->created_at = htmlspecialchars(strip_tags($this->created_at));
         $this->id = ($this->id);
 
-        $sqlQuery = "UPDATE " . $this->db_table . " SET name = '" . $this->name . "',
-email = '" . $this->email . "',
-area = '" . $this->area . "',created_at = '" . $this->created_at . "'
-WHERE id = " . $this->id;
+        $sqlQuery = "UPDATE " . $this->db_table .
+            " SET name = '" . $this->name .
+            "', email = '" . $this->email .
+            "', area = '" . $this->area .
+            "',created_at = '" . $this->created_at . "'
+                    WHERE id = " . $this->id;
 
         $this->db->query($sqlQuery);
         if ($this->db->affected_rows > 0) {
