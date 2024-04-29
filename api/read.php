@@ -10,20 +10,17 @@ $items = new Employee($db);
 $records = $items->getEmployees();
 $itemCount = $records->num_rows;
 //echo json_encode($itemCount);
-if($itemCount > 0){
-$employeeArr = array();
-$employeeArr["body"] = array();
-//$employeeArr["itemCount"] = $itemCount;
-while ($row = $records->fetch_assoc())
-{
-array_push($employeeArr["body"], $row);
+if ($itemCount > 0) {
+    $employeeArr = array();
+    $employeeArr["body"] = array();
+    //$employeeArr["itemCount"] = $itemCount;
+    while ($row = $records->fetch_assoc()) {
+        array_push($employeeArr["body"], $row);
+    }
+    echo json_encode($employeeArr);
+} else {
+    http_response_code(404);
+    echo json_encode(
+        array("message" => "No record found.")
+    );
 }
-echo json_encode($employeeArr);
-}
-else{
-http_response_code(404);
-echo json_encode(
-array("message" => "No record found.")
-);
-}
-?>
